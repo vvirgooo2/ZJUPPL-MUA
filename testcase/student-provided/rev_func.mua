@@ -1,0 +1,25 @@
+make "rev_func [
+  [f]
+  [
+    make "r [
+      [a b]
+      [f :b :a]
+    ]
+    return :r
+  ]
+]
+
+make "rev_sub rev_func [[x y] [sub :x :y]]
+print rev_sub 2 5
+print rev_sub 26.5 10.3
+
+make "rev_ge rev_func [[x y] [or gt :x :y eq :x :y]]
+print rev_ge 3 7
+print rev_ge "abc "aBc
+print rev_ge 8 8
+
+make "rev_imply rev_func [[x y] [or not :x :y]]
+print rev_imply false false
+print rev_imply false true
+print rev_imply true false
+print rev_imply true true

@@ -1,0 +1,66 @@
+make "a [
+  [b]
+  [
+    make "c 1
+    make "d [
+      []
+      [
+        make "e 2
+        make "f [
+          []
+          [
+            make "g 3
+            make "h [
+              []
+              [
+                return thing :b
+              ]
+            ]
+            return h
+          ]
+        ]
+        return f
+      ]
+    ]
+    return d
+  ]
+]
+
+print a "c
+print a "e
+print a "g
+
+make "i [
+  []
+  [
+    make "j 4
+    make "k [
+      []
+      [
+        make "l 5
+        make "m [
+          []
+          [
+            make "n 6
+            make "o [
+              [p]
+              [
+                return thing :p
+              ]
+            ]
+            return :o
+          ]
+        ]
+        return :m
+      ]
+    ]
+    return :k
+  ]
+]
+
+make "q i
+make "r q
+make "s r
+print s "j
+print s "l
+print s "n

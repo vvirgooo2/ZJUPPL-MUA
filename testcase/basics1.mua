@@ -1,0 +1,12 @@
+make "a 1
+make "b 2
+thing "a
+thing "b
+thing "c
+thing thing "c
+:a
+:b
+:c
+::c
+print "a
+print a

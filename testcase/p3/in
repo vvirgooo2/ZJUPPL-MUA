@@ -1,0 +1,146 @@
+make "f [[x] [
+  make "g [[y] [return add :x :y]]
+  return g 42
+]]
+
+print f 233
+
+make "f1 [[x] [
+    make "g1 [[y] [return add :x :y]]
+    return :g1
+  ]
+]
+make "c1 f1 42
+make "c2 f1 24
+print c1 1
+print c2 2
+
+make "curry_two [[f x] [
+  return [[y] [return f :x :y]]
+]]
+make "f2 [[x y] [
+  return add :x :y
+]]
+make "f2p curry_two :f2 42
+
+print f2p 233
+
+make "fact_base [
+    [rec x]
+    [
+        if eq :x 0
+        [return 1]
+        [return mul :x rec :rec sub :x 1]
+    ]
+]
+
+make "fact_simple [
+    [x]
+    [return fact_base :fact_base :x]
+]
+
+print fact_simple 5
+
+make "fact_nice [
+    [rec]
+    [
+        make "g [
+            [x]
+            [
+                if eq :x 0
+                [return 1]
+                [
+                    make "tmp rec :rec
+                    return mul :x tmp sub :x 1
+                ]
+            ]
+        ]
+        return :g
+    ]
+]
+
+make "fact_curry fact_nice :fact_nice
+print fact_curry 5
+
+make "fact_nicer [
+    [rec]
+    [
+        make "g [
+            [x]
+            [
+                if eq :x 0
+                [return 1]
+                [return mul :x rec sub :x 1]
+            ]
+        ]
+        return :g
+    ]
+]
+
+make "z_comb [
+    [g]
+    [
+        make "t [
+            [r]
+            [
+                make "y [
+                    [yy]
+                    [
+                        make "tmp r :r
+                        return tmp :yy
+                    ]
+                ]
+                return g :y
+            ]
+        ]
+        return t :t
+    ]
+]
+
+make "fact_z z_comb :fact_nicer
+print fact_z 5
+
+make "logic_test [[b] [return b 1 0]]
+
+make "F_TRUE [[x y] [return :x]]
+make "F_FALSE [[x y] [return :y]]
+
+make "F_AND [[p q] [return p :q :p]]
+make "F_OR [[p q] [return p :p :q]]
+make "F_NOT [[p] [return p :F_FALSE :F_TRUE]]
+
+print logic_test F_AND F_AND :F_TRUE :F_TRUE :F_FALSE
+print logic_test F_AND F_OR :F_TRUE :F_FALSE :F_FALSE
+print logic_test F_NOT F_AND :F_TRUE :F_FALSE :F_TRUE
+print logic_test F_OR F_NOT :F_TRUE F_NOT :F_FALSE :F_TRUE
+
+make "church_test [
+    [n]
+    [
+        make "inc [[x] [return add :x 1]]
+        return n :inc 0
+    ]
+]
+
+make "O [
+    [f x]
+    [return :x]
+]
+
+make "succ [
+    [n]
+    [
+        make "t [
+            [f x]
+            [
+                make "tt n :f :x
+                return f :tt
+            ]
+        ]
+        return :t
+    ]
+]
+
+print church_test succ :O
+print church_test succ succ :O
+print church_test succ succ succ :O

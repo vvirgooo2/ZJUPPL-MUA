@@ -1,0 +1,130 @@
+make "print_list [
+  [l]
+  [
+    if isempty :l [] [
+      if islist first :l [
+        print_list first :l
+      ] [
+        print first :l
+      ]
+      print_list butfirst :l
+    ]
+  ]
+]
+
+make "bubble_sort [
+  [a]
+  [
+    make "bubble [
+      [l]
+      [
+        if isempty :l [
+          return []
+        ] []
+        if isempty butlast :l [
+          return :l
+        ] []
+        if lt last :l last butlast :l [
+          return join bubble join butlast butlast :l last :l last butlast :l
+        ] [
+          return join bubble butlast :l last :l
+        ]
+      ]
+    ]
+    make "iterate [
+      [l]
+      [
+        if isempty :l [
+          return []
+        ] []
+        make "tmp bubble :l
+        return sentence join [] first :tmp iterate butfirst :tmp
+      ]
+    ]
+    return iterate :a
+  ]
+]
+
+print_list bubble_sort [5 9 2 4 3 0 7 8 1 6]
+
+make "quick_sort [
+  [a]
+  [
+    if isempty :a [
+      return []
+    ] []
+    if isempty butfirst :a [
+      return :a
+    ] []
+    make "split [
+      [pivot l]
+      [
+        if isempty :l [
+          return [[] []]
+        ] []
+        make "tmp split :pivot butlast :l
+        make "left first :tmp
+        make "right last :tmp
+        if lt last :l :pivot [
+          make "left join :left last :l
+        ] [
+          make "right join :right last :l
+        ]
+        return list :left :right
+      ]
+    ]
+    make "tmp split last :a butlast :a
+    make "left first :tmp
+    make "right last :tmp
+    if isempty :left [
+      make "left join :left last :a
+    ] [
+      make "right join :right last :a
+    ]
+    return sentence quick_sort :left quick_sort :right
+  ]
+]
+
+print_list quick_sort [7 1 0 4 8 9 3 6 2 5]
+
+make "merge_sort [
+  [a]
+  [
+    if isempty :a [
+      return []
+    ] []
+    if isempty butfirst :a [
+      return :a
+    ] []
+    make "split [
+      [l]
+      [
+        if isempty :l [
+          return [[] []]
+        ] []
+        if isempty butfirst :l [
+          return list :l []
+        ] []
+        make "tmp split butlast butfirst :l
+        return list sentence join [] first :l first :tmp join last :tmp last :l
+      ]
+    ]
+    make "merge [
+      [l r]
+      [
+        if or isempty :l isempty :r [
+          return sentence :l :r
+        ] []
+        if lt first :l first :r [
+          return sentence join [] first :l merge butfirst :l :r
+        ] [
+          return sentence join [] first :r merge :l butfirst :r
+        ]
+      ]
+    ]
+    make "tmp split :a
+    return merge merge_sort first :tmp merge_sort last :tmp
+  ]
+]
+
+print_list merge_sort [4 6 1 8 3 0 7 9 5 2]

@@ -1,0 +1,9 @@
+number, 3.0, 1, rev sub
+number, -16.2, 1, rev sub
+word, true, 1, rev ge
+word, false, 1, rev ge
+word, true, 1, rev ge
+word, true, 1, rev imply
+word, false, 1, rev imply
+word, true, 1, rev imply
+word, true, 1, rev imply

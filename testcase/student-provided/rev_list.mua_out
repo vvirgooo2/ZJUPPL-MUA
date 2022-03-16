@@ -1,0 +1,23 @@
+word, z, 1, rev list 1
+word, y, 1, rev list 1
+word, x, 1, rev list 1
+word, 0, 1, rev list 2
+word, 9, 1, rev list 2
+word, 78, 1, rev list 2
+word, 6, 1, rev list 2
+word, 345, 1, rev list 2
+word, 12, 1, rev list 2
+word, g, rev list 3
+word, e, rev list 3
+word, f, rev list 3
+word, d, rev list 3
+word, c, rev list 3
+word, b, rev list 3
+word, a, rev list 3
+word, n, rev list 4
+word, m, rev list 4
+word, l, rev list 4
+word, i, rev list 4
+word, j, rev list 4
+word, k, rev list 4
+word, h, rev list 4

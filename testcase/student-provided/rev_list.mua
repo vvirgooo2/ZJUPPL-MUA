@@ -1,0 +1,27 @@
+make "print_list [
+  [l]
+  [
+    if isempty :l [] [
+      if islist first :l [
+        print_list first :l
+      ] [
+        print first :l
+      ]
+      print_list butfirst :l
+    ]
+  ]
+]
+
+make "rev_list [
+  [l]
+  [
+    if isempty :l [] [
+      join rev_list butfirst :l first :l
+    ]
+  ]
+]
+
+print_list rev_list [x y z]
+print_list rev_list [12 345 6 78 9 0]
+print_list rev_list [a b c d [e f] g]
+print_list rev_list [h [i [j k]] l m n]
